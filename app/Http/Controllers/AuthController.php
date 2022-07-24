@@ -14,6 +14,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'steam_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
@@ -24,6 +25,7 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $request->get('name'),
+            'steam_name' => $request->get('steam_name'),
             'email' => $request->get('email'),
             'password' => bcrypt($request->password)
         ]);
