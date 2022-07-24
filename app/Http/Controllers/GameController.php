@@ -66,5 +66,69 @@ class GameController extends Controller
         }
     }
 
-    
+    /////////////////////////////////////////////////////////////////////////////////
+    /////////<------------------- SHOW ALL GAMES ------------------>//////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function getAllGamesByUserId()
+    {
+        try {
+
+            Log::info("Getting Games by User ID");
+
+            $userId = auth()->user()->id;
+
+            $games = User::query()->find($userId)->games;
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'games retrieved successfully',
+                    'data' => $games
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error getting games: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error getting games"
+                ],
+                500
+            );
+        }
+    }
+
+    public function getAllGames()
+    {
+        try {
+
+            Log::info("Getting all Games");
+
+            $games = Game::query()->get()->toArray();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'games retrieved successfully',
+                    'data' => $games
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error getting games: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error getting games"
+                ],
+                500
+            );
+        }
+    }
 }

@@ -25,11 +25,13 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/newGame', [GameController::class, 'createGame']);
+    Route::get('/showGamesById', [GameController::class, 'getAllGamesByUserId']);
 });
 
 Route::group(["middleware" => ["jwt.auth", "isSuperAdmin"]], function () {
     
     Route::post('/user/super_admin/{id}', [UserController::class, 'addSuperAdminRoleToUser']);
     Route::post('/user/super_admin_remove/{id}', [UserController::class, 'removeSuperAdminRoleToUser']);
+    Route::get('/showGames', [GameController::class, 'getAllGames']);
 
 });
