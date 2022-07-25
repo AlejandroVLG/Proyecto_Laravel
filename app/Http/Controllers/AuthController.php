@@ -14,9 +14,6 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        if (env('REDIRECT_HTTPS')) {
-            $this->app['request']->server->set('HTTPS', true);
-        }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'steam_name' => 'required|string|max:255',
