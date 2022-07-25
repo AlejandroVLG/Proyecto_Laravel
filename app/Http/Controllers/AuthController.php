@@ -10,8 +10,13 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    const ROLE_USER = 1;
+
     public function register(Request $request)
     {
+        if (env('REDIRECT_HTTPS')) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'steam_name' => 'required|string|max:255',
@@ -29,6 +34,8 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => bcrypt($request->password)
         ]);
+
+        $user->roles()->attach(self::ROLE_USER);
 
         $token = JWTAuth::fromUser($user);
 
