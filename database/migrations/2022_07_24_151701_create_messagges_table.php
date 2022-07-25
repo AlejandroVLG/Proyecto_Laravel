@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('messagges', function (Blueprint $table) {
             $table->id();
             $table->string('message');
-            $table->date_format('date', '%T');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('channel_id');
             $table->timestamps();
