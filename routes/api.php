@@ -29,12 +29,13 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::get('/showGamesById', [GameController::class, 'getAllGamesByUserId']);
     Route::put('/editGame/{id}', [GameController::class, 'editGame']);
     Route::delete('/deleteGame/{id}', [GameController::class, 'deleteGame']);
+    Route::get('/showGames', [GameController::class, 'getAllGames']);
+
 });
 
 Route::group(["middleware" => ["jwt.auth", "isSuperAdmin"]], function () {
     
     Route::post('/user/super_admin/{id}', [UserController::class, 'addSuperAdminRoleToUser']);
     Route::post('/user/super_admin_remove/{id}', [UserController::class, 'removeSuperAdminRoleToUser']);
-    Route::get('/showGames', [GameController::class, 'getAllGames']);
 
 });
