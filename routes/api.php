@@ -40,6 +40,7 @@ Route::group(["middleware" => ["jwt.auth", "isSuperAdmin"]], function () {
     
     Route::post('/user/super_admin/{id}', [UserController::class, 'addSuperAdminRoleToUser']);
     Route::post('/user/super_admin_remove/{id}', [UserController::class, 'removeSuperAdminRoleToUser']);
-    Route::put('/updateChannel/{id}', [ChannelController::class, 'editChannel']);
+    Route::put('/updateChannel/{id}', [ChannelController::class, 'editChannelById']);
+    Route::delete('/deleteChannel/{id}', [ChannelController::class, 'deleteChannelById']);
 
 });

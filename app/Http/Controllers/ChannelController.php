@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class ChannelController extends Controller
 {
     /////////////////////////////////////////////////////////////////////////////////
-    /////////<------------------- CREATE A NEW CHANNEL ------------------>//////////////
+    /////////<------------------- CREATE NEW CHANNEL ------------------>/////////////
     /////////////////////////////////////////////////////////////////////////////////
 
     public function createChannel(Request $request)
@@ -104,10 +104,10 @@ class ChannelController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    /////////<------------------- EDIT CHANNELS ------------------>//////////////
+    /////////<------------------- EDIT CHANNEL BY ID------------------>//////////////
     /////////////////////////////////////////////////////////////////////////////////
 
-    public function editChannel(Request $request, $id)
+    public function editChannelById(Request $request, $id)
     {
         try {
             Log::info('Updating Channel');
@@ -168,43 +168,43 @@ class ChannelController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    /////////////<------------------- DELETE GAMES ------------------>//////////////
+    //////////<------------------- DELETE CHANNEL BY ID ------------------>//////////
     /////////////////////////////////////////////////////////////////////////////////
 
-    public function deleteChannel($id)
+    public function deleteChannelById($id)
     {
         try {
-            Log::info('Deleting game');
+            Log::info('Deleting channel');
 
-            $game = Game::query()->find($id);
+            $channel = Channel::query()->find($id);
 
-            if (!$game) {
+            if (!$channel) {
                 return response()->json(
                     [
                         'success' => false,
-                        'message' => "Game doesn't exists"
+                        'message' => "Channel doesn't exists"
                     ],
                     404
                 );
             }
 
-            $game->delete($id);
+            $channel->delete($id);
 
             return response()->json(
                 [
                     'success' => true,
-                    'message' => "Game " . $id . " deleted"
+                    'message' => "Channel " . $id . " deleted"
                 ],
                 200
             );
         } catch (\Exception $exception) {
 
-            Log::error("Error deleting the game: " . $exception->getMessage());
+            Log::error("Error deleting the channel: " . $exception->getMessage());
 
             return response()->json(
                 [
                     'success' => false,
-                    'message' => "Error deleting the game"
+                    'message' => "Error deleting the channel"
                 ],
                 500
             );
