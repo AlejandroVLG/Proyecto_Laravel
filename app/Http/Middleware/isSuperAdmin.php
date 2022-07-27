@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
-class isSuperAdmin
+class IsSuperAdmin
 {
+    const ROLE_SUPER_ADMIN = 3;
     /**
      * Handle an incoming request.
      *
@@ -16,6 +18,22 @@ class isSuperAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        $userId = auth()->user()->id;
+
+        $user = User::find($userId);
+
+        $isSuperAdmin = $user->roles->contains(self::ROLE_SUPER_ADMIN);
+
+        if (!$isSuperAdmin) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Route doesnt found'
+                ],
+                404
+            );
+        }
+
         return $next($request);
     }
 }

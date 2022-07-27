@@ -125,10 +125,8 @@ class ChannelController extends Controller
                     400
                 );
             }
-            $userId = auth()->user()->id;
-
             
-            $channel = User::query()->where('id', '=', $userId)->find($id);
+            $channel = Channel::query()->find($id);
 
             if (!$channel) {
                 return response()->json(
@@ -163,6 +161,50 @@ class ChannelController extends Controller
                 [
                     'success' => false,
                     'message' => "Error modifing the channel"
+                ],
+                500
+            );
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    /////////////<------------------- DELETE GAMES ------------------>//////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function deleteChannel($id)
+    {
+        try {
+            Log::info('Deleting game');
+
+            $game = Game::query()->find($id);
+
+            if (!$game) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Game doesn't exists"
+                    ],
+                    404
+                );
+            }
+
+            $game->delete($id);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "Game " . $id . " deleted"
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error deleting the game: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error deleting the game"
                 ],
                 500
             );

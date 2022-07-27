@@ -33,7 +33,6 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::get('/showGames', [GameController::class, 'getAllGames']);
     Route::post('/newChannel', [ChannelController::class, 'createChannel']);
     Route::get('/getChannel', [ChannelController::class, 'showAllChannels']);
-    Route::put('/updateChannel/{id}', [ChannelController::class, 'editChannel']);
 
 });
 
@@ -41,5 +40,6 @@ Route::group(["middleware" => ["jwt.auth", "isSuperAdmin"]], function () {
     
     Route::post('/user/super_admin/{id}', [UserController::class, 'addSuperAdminRoleToUser']);
     Route::post('/user/super_admin_remove/{id}', [UserController::class, 'removeSuperAdminRoleToUser']);
+    Route::put('/updateChannel/{id}', [ChannelController::class, 'editChannel']);
 
 });
