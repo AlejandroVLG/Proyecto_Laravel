@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -30,6 +31,9 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::put('/editGame/{id}', [GameController::class, 'editGame']);
     Route::delete('/deleteGame/{id}', [GameController::class, 'deleteGame']);
     Route::get('/showGames', [GameController::class, 'getAllGames']);
+    Route::post('/newChannel', [ChannelController::class, 'createChannel']);
+    Route::get('/getChannel', [ChannelController::class, 'showAllChannels']);
+    Route::put('/updateChannel/{id}', [ChannelController::class, 'editChannel']);
 
 });
 
