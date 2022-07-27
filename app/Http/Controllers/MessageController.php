@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class MessaggeController extends Controller
+class MessageController extends Controller
 {
     /////////////////////////////////////////////////////////////////////////////////
     /////////<------------------- CREATE A NEW MESSAGE ------------------>//////////////
     /////////////////////////////////////////////////////////////////////////////////
 
-    public function createGame(Request $request)
+    public function createNewMessage(Request $request)
     {
         try {
             Log::info("Creating a new message");
@@ -32,10 +32,10 @@ class MessaggeController extends Controller
                     400
                 );
             };
+            $userId = auth()->user()->id;
 
             $messageText = $request->input('message');
             $channelId = $request->input('channel_id');
-            $userId = auth()->user()->id;
 
             $message = new Message();
             $message->message = $messageText;

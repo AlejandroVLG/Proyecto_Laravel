@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::get('/showGames', [GameController::class, 'getAllGames']);
     Route::post('/newChannel', [ChannelController::class, 'createChannel']);
     Route::get('/getChannel', [ChannelController::class, 'showAllChannels']);
+    Route::post('/createMessage', [MessageController::class, 'createNewMessage']);
 
 });
 
