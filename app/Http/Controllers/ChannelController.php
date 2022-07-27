@@ -125,7 +125,7 @@ class ChannelController extends Controller
                     400
                 );
             }
-            
+
             $channel = Channel::query()->find($id);
 
             if (!$channel) {
