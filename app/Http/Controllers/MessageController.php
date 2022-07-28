@@ -100,4 +100,74 @@ class MessageController extends Controller
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////<------------------- EDIT MESSAGE BY ID ------------------>////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function editMessageById(Request $request, $id)
+    {
+        try {
+            Log::info('Changing Messages');
+
+            $validator = Validator::make($request->all(), [
+                'message' => ['string'],
+                'channel_id' => ['integer']
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => $validator->errors()
+                    ],
+                    400
+                );
+            }
+            $userId = auth()->user()->id;
+
+            $message = Message::query()->where('user_id', '=', $userId)->find($id);
+
+            if (!$message) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Message doesn't exists"
+                    ],
+                    404
+                );
+            }
+
+            $messageText = $request->input('message');
+            $channelId = $request->input('channel_id');
+
+            if (isset($messageText)) {
+                $message->message = $messageText;
+            };
+
+            if (isset($channelId)) {
+                $message->channel_id = $channelId;
+            };
+
+            $message->save();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "Message changed"
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error modifing the message: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error modifing the message"
+                ],
+                500
+            );
+        }
+    }
 }
