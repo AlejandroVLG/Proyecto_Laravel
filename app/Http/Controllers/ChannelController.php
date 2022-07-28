@@ -190,6 +190,8 @@ class ChannelController extends Controller
 
             $channel->delete($id);
 
+            $channel->users()->detach();
+
             return response()->json(
                 [
                     'success' => true,
@@ -210,4 +212,52 @@ class ChannelController extends Controller
             );
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    /////////////<------------------- JOIN CHANNEL ------------------>//////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function joinChannel($id)
+    {
+        try {
+            Log::info('Join channel');
+
+            $user = auth()->user()->id;
+
+            $channel = Channel::query()->find($id);
+
+            $channel->users()->attach($user);
+
+
+            if (!$channel) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Channel doesn't exists"
+                    ],
+                    404
+                );
+            }
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "Joined to " . $id . " channel"
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error joining to channel: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error joining to channel"
+                ],
+                500
+            );
+        }
+    }
+
 }
