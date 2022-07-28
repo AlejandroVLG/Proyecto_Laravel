@@ -170,4 +170,48 @@ class MessageController extends Controller
             );
         }
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////
+    /////////////<------------------- DELETE MESSAGE ------------------>/////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function deleteMessage($id)
+    {
+        try {
+            Log::info('Deleting message');
+
+            $message = Message::query()->find($id);
+
+            if (!$message) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Message doesn't exists"
+                    ],
+                    404
+                );
+            }
+
+            $message->delete($id);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "Message " . $id . " deleted"
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error deleting the message: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error deleting the message"
+                ],
+                500
+            );
+        }
+    }
 }

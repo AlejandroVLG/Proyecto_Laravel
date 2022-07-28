@@ -42,6 +42,7 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::post('/createMessage', [MessageController::class, 'createNewMessage']);
     Route::get('/showMessages', [MessageController::class, 'showAllMessages']);
     Route::put('/editMessage/{id}', [MessageController::class, 'editMessageById']);
+    Route::delete('/deleteMessage/{id}', [MessageController::class, 'deleteMessage']);
 
 });
 
