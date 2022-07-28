@@ -96,7 +96,7 @@ class ChannelController extends Controller
             return response()->json(
                 [
                     'success' => false,
-                    'message' => "Error getting games"
+                    'message' => "Error getting channels"
                 ],
                 500
             );
@@ -289,7 +289,7 @@ class ChannelController extends Controller
             return response()->json(
                 [
                     'success' => true,
-                    'message' => "You've leaved from channel " . $id 
+                    'message' => "You've leaved from channel " . $id
                 ],
                 200
             );
@@ -301,6 +301,39 @@ class ChannelController extends Controller
                 [
                     'success' => false,
                     'message' => "Error leaving the channel"
+                ],
+                500
+            );
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////<---------------- SEARCH CHANNEL BY GAME ID --------------->//////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function showChannelByGameId($id)
+    {
+        try {
+
+            Log::info("Getting channels by game id");
+
+            $channels = Channel::query()->where('game_id', '=', $id)->get()->toArray();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'channels retrieved successfully',
+                    'data' => $channels
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error getting channels: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error getting channels"
                 ],
                 500
             );
