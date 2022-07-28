@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class MessageController extends Controller
 {
     /////////////////////////////////////////////////////////////////////////////////
-    /////////<------------------- CREATE A NEW MESSAGE ------------------>//////////////
+    /////////<------------------- CREATE A NEW MESSAGE ------------------>////////////
     /////////////////////////////////////////////////////////////////////////////////
 
     public function createNewMessage(Request $request)
@@ -63,4 +63,41 @@ class MessageController extends Controller
             );
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    /////////<------------------- SHOW ALL MESSAGES ------------------>//////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function showAllMessages()
+    {
+        try {
+
+            Log::info("Getting all Messages");
+
+            $userId = auth()->user()->id;
+
+            $message = Message::query()->where('user_id', '=', $userId)->get()->toArray();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'message retrieved successfully',
+                    'data' => $message
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error getting messages: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error getting messages"
+                ],
+                500
+            );
+        }
+    }
+
 }
