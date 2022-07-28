@@ -260,4 +260,50 @@ class ChannelController extends Controller
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    /////////////<------------------- LEAVE CHANNEL ------------------>//////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function leaveChannel($id)
+    {
+        try {
+            Log::info('Leave channel');
+
+            $user = auth()->user()->id;
+
+            $channel = Channel::query()->find($id);
+
+            $channel->users()->detach($user);
+
+
+            if (!$channel) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Channel doesn't exists"
+                    ],
+                    404
+                );
+            }
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "You've leaved from channel " . $id 
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error leaving the channel: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error leaving the channel"
+                ],
+                500
+            );
+        }
+    }
 }

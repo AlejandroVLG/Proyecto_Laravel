@@ -39,6 +39,7 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::post('/newChannel', [ChannelController::class, 'createChannel']);
     Route::get('/getChannel', [ChannelController::class, 'showAllChannels']);
     Route::get('/joinChannel/{id}', [ChannelController::class, 'joinChannel']);
+    Route::get('/leaveChannel/{id}', [ChannelController::class, 'leaveChannel']);
     
     Route::post('/createMessage', [MessageController::class, 'createNewMessage']);
     Route::get('/showMessages', [MessageController::class, 'showAllMessages']);
