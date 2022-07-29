@@ -36,7 +36,8 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::get('/showGamesById', [GameController::class, 'getAllGamesByUserId']);
     Route::put('/editGame/{id}', [GameController::class, 'editGame']);
     Route::delete('/deleteGame/{id}', [GameController::class, 'deleteGame']);
-    Route::get('/showGames', [GameController::class, 'getAllGames']);
+    Route::get('/showGames', [GameController::class, 'showAllGames']);
+    Route::get('/showGamesByTitle', [GameController::class, 'searchGameByTitle']);
 
     Route::post('/newChannel', [ChannelController::class, 'createChannel']);
     Route::get('/getChannel', [ChannelController::class, 'showAllChannels']);

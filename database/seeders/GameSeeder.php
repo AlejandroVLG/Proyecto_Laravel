@@ -55,6 +55,10 @@ class GameSeeder extends Seeder
             [
                 'title' => 'Horizon zero dawn',
                 'game_url' => "https://www.playstation.com/es-es/games/horizon-zero-dawn/"
+            ],
+            [
+                "title" => "World of tanks",
+                "game_url" => "https://worldoftanks.eu/es/"
             ]
         );
     }
