@@ -79,7 +79,10 @@ class ChannelController extends Controller
 
             Log::info("Getting all channels");
 
-            $channels = Channel::query()->get()->toArray();
+            $channels = Channel::query()
+                ->join('Games', 'Channels.game_id', '=', 'Games.id')
+                ->select('Channels.id', 'Channels.name', 'Games.title')
+                ->get();
 
             return response()->json(
                 [
