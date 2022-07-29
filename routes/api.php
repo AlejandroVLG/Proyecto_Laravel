@@ -28,7 +28,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(["middleware" => "jwt.auth"], function () {
     
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/myProfile', [AuthController::class, 'myProfile']);
+
+    Route::put('/editMyProfile/{id}', [UserController::class, 'editMyProfile']);
 
     Route::post('/newGame', [GameController::class, 'createGame']);
     Route::get('/showGamesById', [GameController::class, 'getAllGamesByUserId']);

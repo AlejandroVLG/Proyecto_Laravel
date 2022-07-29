@@ -228,7 +228,6 @@ class ChannelController extends Controller
 
             $channel->users()->attach($user);
 
-
             if (!$channel) {
                 return response()->json(
                     [
