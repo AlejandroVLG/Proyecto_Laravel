@@ -95,7 +95,7 @@ Proyecto hecho como práctica en el curso de FullStack Developer de GeeksHubs ac
 
 >Muestra todos los canales existentes sustituyendo el campo <b>game_id</b> por el campo <b>title</b> de este.
 ---
-- <b>hhttps://alejandro-bbdd-mysql-laravel.herokuapp.com/api/updateChannel/3</b>
+- <b>https://alejandro-bbdd-mysql-laravel.herokuapp.com/api/updateChannel/3</b>
 <img src="/public/img/Edit_channel.png">
 
 >Introduciendo el token de un <b>Super_admin</b>, permite hacer cambios en uno o varios campos del canal indicando el <b>ID</b> del canal en la <b>URL</b> del endpoint.
@@ -116,12 +116,10 @@ Proyecto hecho como práctica en el curso de FullStack Developer de GeeksHubs ac
 >Introduciendo el token e indicando el <b>ID</b> del canal en la <b>URL</b> del endpoint, permite salir del canal eliminando el registro en la tabla intermedia <b>channel_user</b>.
 ---
 - <b>https://alejandro-bbdd-mysql-laravel.herokuapp.com/api/ShowChannelGame/4</b>
-<img src="/public/img/Leave_channel.png">
+<img src="/public/img/Show_channels_by_ID.png">
 
 >Indicando el <b>ID</b> del juego en la <b>URL</b> del endpoint, muestra los canales existentes del juego que le hayamos indicado.
 ---
-
-
 
 - <b>https://alejandro-bbdd-mysql-laravel.herokuapp.com/api/createMessage</b>
 <img src="/public/img/New message.png">
