@@ -14,7 +14,7 @@ Proyecto hecho como práctica en el curso de FullStack Developer de GeeksHubs ac
 
 ---
 
-<center><img src="/public/img/Diagrama_entidad_relacion.png" style="width:400px;"/> </center> 
+<center><img src="/public/img/Diagrama_entidad_relacion.png" style="width:800px;"/></center> 
 
 ---
 
