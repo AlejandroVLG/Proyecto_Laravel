@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    /* public function run()
     {
         DB::table('users')->insert(
             [
@@ -95,5 +95,5 @@ class UserSeeder extends Seeder
                 'password' => "123456"
             ]
         );
-    }
+    } */
 }
