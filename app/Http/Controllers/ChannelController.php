@@ -318,7 +318,10 @@ class ChannelController extends Controller
 
             Log::info("Getting channels by game id");
 
-            $channels = Channel::query()->where('game_id', '=', $id)->get()->toArray();
+            $channels = Channel::query()
+                ->where('game_id', '=', $id)
+                ->get()
+                ->toArray();
 
             return response()->json(
                 [
