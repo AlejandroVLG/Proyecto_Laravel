@@ -73,11 +73,8 @@ class MessageController extends Controller
         try {
             Log::info("Getting all Messages from a channel");
 
-            $userId = auth()->user()->id;
-
             $message = Message::query()
                 ->where('channel_id', '=', $channelId)
-                ->where('user_id', "=", $userId )
                 ->get()
                 ->toArray();
 
