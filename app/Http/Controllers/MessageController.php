@@ -65,10 +65,49 @@ class MessageController extends Controller
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    /////////<------------------- SHOW ALL MESSAGES ------------------>//////////////
+    /////////<------------- SHOW ALL MESSAGES BY CHANNEL ------------->//////////////
     /////////////////////////////////////////////////////////////////////////////////
 
-    public function showAllMessages()
+    public function showAllMessagesByChannel($channelId)
+    {
+        try {
+            Log::info("Getting all Messages from a channel");
+
+            $userId = auth()->user()->id;
+
+            $message = Message::query()
+                ->where('channel_id', '=', $channelId)
+                ->where('user_id', "=", $userId )
+                ->get()
+                ->toArray();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'message retrieved successfully',
+                    'data' => $message
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error getting messages: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error getting messages"
+                ],
+                500
+            );
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    /////////<---------------- SHOW ALL MESSAGES BY USER -------------->/////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public function showAllMessagesByUser()
     {
         try {
 
@@ -76,7 +115,10 @@ class MessageController extends Controller
 
             $userId = auth()->user()->id;
 
-            $message = Message::query()->where('user_id', '=', $userId)->get()->toArray();
+            $message = Message::query()
+                ->where('user_id', '=', $userId)
+                ->get()
+                ->toArray();
 
             return response()->json(
                 [
@@ -170,7 +212,7 @@ class MessageController extends Controller
             );
         }
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////////
     /////////////<------------------- DELETE MESSAGE ------------------>/////////////
     /////////////////////////////////////////////////////////////////////////////////

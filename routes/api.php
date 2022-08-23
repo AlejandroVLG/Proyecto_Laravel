@@ -46,7 +46,8 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::get('/ShowChannelGame/{id}', [ChannelController::class, 'showChannelByGameId']);
     
     Route::post('/createMessage', [MessageController::class, 'createNewMessage']);
-    Route::get('/showMessages', [MessageController::class, 'showAllMessages']);
+    Route::get('/showMessagesByUser', [MessageController::class, 'showAllMessagesByUser']);
+    Route::get('/showMessagesByChannel/{channel_id}', [MessageController::class, 'showAllMessagesByChannel']);
     Route::put('/editMessage/{id}', [MessageController::class, 'editMessageById']);
     Route::delete('/deleteMessage/{id}', [MessageController::class, 'deleteMessage']);
 
